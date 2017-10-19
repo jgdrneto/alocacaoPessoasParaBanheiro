@@ -13,7 +13,10 @@ public class Semaforo extends AlgoritmoSincronizacao{
         super(nBanheiro);
         semaforo = new Semaphore(1,true);
     }
-
+    
+    /**
+     * Sobreescrita do método addPessoa(Pessoa p) da interface AlgoritmoSincronizacao
+     */
     @Override
     public boolean addPessoa(Pessoa p) {
         
@@ -28,11 +31,13 @@ public class Semaforo extends AlgoritmoSincronizacao{
                     semaforo.release();
                     return true;
                 }else{
-                    //System.out.println(p.getId() + " - " + p.getNome() + " : Pessoa de outro sexo dentro banheiro");
+                    //Caso o banheiro tenha alguem de sexo distinto da pessoa atual
+                    //System.out.println(p.getId() + " - " + p.getNome() + " : Existe uma pessoa de outro sexo dentro do banheiro");
                     semaforo.release();
                 }
             }else{
-                //System.out.println(p.getId() + " - " + p.getNome() + ":O banheiro está cheio");
+                //Caso o banheiro esteja cheio
+                //System.out.println(p.getId() + " - " + p.getNome() + ": O banheiro está cheio");
                 semaforo.release();
             }
             
@@ -43,6 +48,9 @@ public class Semaforo extends AlgoritmoSincronizacao{
         
     }
     
+    /**
+     * Sobreescrita do método removerPessoa(Pessoa p) da interface AlgoritmoSincronizacao
+     */
     public void removerPessoa(Pessoa p){
         
         try {
