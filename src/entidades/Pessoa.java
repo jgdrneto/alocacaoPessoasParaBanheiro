@@ -46,23 +46,42 @@ public class Pessoa implements Runnable{
     public char getSexo() {
         return this.sexo;
     }
-
-    @Override
-    public void run() {
-        algSinc.addPessoa(this);
-        
+    
+    private void entrarNoBanheiro(){
+        while(!algSinc.addPessoa(this)){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    private void usarBanheiro(){
         try {
             
             while(this.tempoDeUso>0){
                 this.tempoDeUso--;
                 Thread.sleep(1000);
-            }
-            
-            algSinc.removerPessoa(this);
-            
+            }    
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void sairBanheiro(){
+        algSinc.removerPessoa(this);
+    }
+    
+    @Override
+    public void run() {
+        
+        this.entrarNoBanheiro();
+        
+        this.usarBanheiro();
+        
+        this.sairBanheiro();
     }
 
     @Override

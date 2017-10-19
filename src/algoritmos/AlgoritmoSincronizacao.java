@@ -11,7 +11,7 @@ public abstract class AlgoritmoSincronizacao {
         banheiro = nBanheiro;
     }
 
-    public abstract void addPessoa(Pessoa p);
+    public abstract boolean addPessoa(Pessoa p);
     
     public abstract void removerPessoa(Pessoa p);
 }

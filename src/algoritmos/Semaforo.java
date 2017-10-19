@@ -15,7 +15,7 @@ public class Semaforo extends AlgoritmoSincronizacao{
     }
 
     @Override
-    public void addPessoa(Pessoa p) {
+    public boolean addPessoa(Pessoa p) {
         
         try {
             semaforo.acquire();
@@ -26,22 +26,20 @@ public class Semaforo extends AlgoritmoSincronizacao{
                     System.out.print(p.getId() + " - " + p.getNome() + " entrou no banheiro");
                     System.out.println(" \t Banheiro: " + this.banheiro.getPessoas());
                     semaforo.release();
+                    return true;
                 }else{
                     //System.out.println(p.getId() + " - " + p.getNome() + " : Pessoa de outro sexo dentro banheiro");
                     semaforo.release();
-                    Thread.sleep(1000);
-                    this.addPessoa(p);
                 }
             }else{
                 //System.out.println(p.getId() + " - " + p.getNome() + ":O banheiro está cheio");
                 semaforo.release();
-                Thread.sleep(1000);
-                this.addPessoa(p);
             }
             
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return false;
         
     }
     
